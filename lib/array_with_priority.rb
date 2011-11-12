@@ -5,18 +5,14 @@ class ArrayWithPriority
   cattr_accessor :default_priority
   self.default_priority = 5
 
-  def add klass, opts={}
-    opts[:priority] ||= self.default_priority
-
-    arr = self.array[opts[:priority]] || []
-    arr << klass
-    arr.sort {|a,b| a.to_s <=> b.to_s }
-
-    self.array[opts[:priority]] = arr
+  def add obj, opts={}
+    i = opts[:priority] || self.default_priority
+    self.array[i] ||= []
+    self.array[i] << obj
   end
 
-  def << klass
-    add klass
+  def << obj
+    add obj
   end
 
   def to_a
